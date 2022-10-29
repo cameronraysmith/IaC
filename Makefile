@@ -32,7 +32,7 @@
 
 # read variables from tfvars.sh
 $(shell ./tfvars.sh)
-include envfile
+include .env
 export
 
 setup: test

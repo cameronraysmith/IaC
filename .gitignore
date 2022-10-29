@@ -1,6 +1,6 @@
 ### Local ###
 archive/
-envfile
+.env
 
 ### VS Code ###
 *.code-workspace
