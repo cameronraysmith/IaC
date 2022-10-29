@@ -2,7 +2,14 @@
 
 This folder contains [infrastructure as code][IaC] (IaC) for a minimal development environment that supports swapping backend machines and associated GPU(s) to meet the demands of a given development task. It currently uses [terraform][terraform] with the [google cloud platform][gcpsdk] provider, but it could be adapted for other cloud platforms or providers (see the [terraform documentation][tfmdocs] for further reference).
 
-The general workflow is to set up a development machine with `make up`, connect to the machine via the associated jupyter lab server accessible from the google cloud platform user interface for interactive use, and ssh to the machine from a terminal or IDE such as VS Code for library development. The machine can be toggled off and on with `make stop` and `make start`. All associated resources can be destroyed with `make down`.
+## workflow
+The expected workflow is to
+
+- set up a development machine with `make up`, 
+- connect to the machine via the associated jupyter lab server accessible from the [google cloud platform user interface][gcpui] for interactive use, 
+- [ssh](#remote-connection) to the machine from a terminal or IDE such as VS Code for library development,
+- toggle the machine off and on with `make stop` and `make start`, and
+- destroy all associated resources with `make down`.
 
 ## prerequisites
 
@@ -70,6 +77,7 @@ Host gcp
 [make]: https://www.gnu.org/software/make/
 [gcpsdk]: https://cloud.google.com/sdk/docs/install
 [tfmdocs]: https://developer.hashicorp.com/terraform/docs
+[gcpui]: https://console.cloud.google.com/vertex-ai/workbench/list/instances
 [terraform]: https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/install-cli
 [pass]: https://www.passwordstore.org/
 [ghcli]: https://cli.github.com
