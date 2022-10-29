@@ -24,7 +24,7 @@ vm_image_family  = "pytorch-1-12-cu113-notebooks"
 # container_tag         = "22.09-py3"
 
 # startup script
-post_startup_script_url = "https://hastebin.com/raw/ososujefer" # copy of setup-remote.sh
+post_startup_script_url = "https://hastebin.com/raw/oyifewenub"
 # post_startup_script_url = "https://hastebin.com/raw/ledahubuqe" # test
 
 
