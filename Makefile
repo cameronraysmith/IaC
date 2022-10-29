@@ -31,7 +31,7 @@
 ##############
 
 # read variables from tfvars.sh
-$(shell ./tfvars.sh)
+$(shell ./tfvars.sh > /dev/null 2>&1)
 include .env
 export
 
