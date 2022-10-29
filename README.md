@@ -34,6 +34,38 @@ The primary interface is via the [Makefile](./Makefile), which is being used her
     
 All other targets are auxiliary. The [Makefile](./Makefile) is primarily to document commands that are commonly used to work with the terraform resource(s). You can simply copy the command from the Makefile and run it manually in the terminal if you do not want to use [make][make].
 
+## remote connection
+
+The [Makefile](./Makefile) will run
+
+```shell
+gcloud compute config-ssh
+```
+
+to update your ssh configuration file and print the configured hostname at the end of `make up`. In order to connect from IDEs or otherwise, it may be helpful to update your `~/.ssh/config` file with something similar to (updated to reference the key files you use with google cloud platform)
+
+```shell
+Host gcp
+    HostName <IP_ADDRESS>
+    IdentityFile ~/.ssh/google_compute_engine
+    UserKnownHostsFile=~/.ssh/google_compute_known_hosts
+    IdentitiesOnly=yes
+    CheckHostIP=no
+    StrictHostKeyChecking=no
+    RequestTTY Yes
+    RemoteCommand cd /home/jupyter && sudo su jupyter
+```
+
+The `IP_ADDRESS` of the remote host is printed at the end of `make up`. You can run `gcloud compute instances list` to display the `IP_ADDRESS` of the virtual machine if you need to reference it.
+If you use the container rather than disk image to setup the virtual machine, you may find an alternative `RemoteCommand` useful
+
+```shell
+Host gcp
+    ...
+    RemoteCommand sudo docker exec -it payload-container /bin/bash
+```
+
+
 [make]: https://www.gnu.org/software/make/
 [gcpsdk]: https://cloud.google.com/sdk/docs/install
 [tfmdocs]: https://developer.hashicorp.com/terraform/docs
