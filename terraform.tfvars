@@ -8,7 +8,7 @@
 # machine
 ##########
 
-# notebooks_name        = <see TF_VAR_notebooks_name>
+# notebooks_name        = <see TF_VAR_notebooks_name in tfvars.sh>
 notebook_machine_type = "n1-standard-4"
 
 # image-based
@@ -23,9 +23,15 @@ vm_image_family  = "pytorch-1-12-cu113-notebooks"
 # container_image       = "nvcr.io/nvidia/pytorch"
 # container_tag         = "22.09-py3"
 
-# startup script
-post_startup_script_url = "https://hastebin.com/raw/oyifewenub"
-# post_startup_script_url = "https://hastebin.com/raw/ledahubuqe" # test
+# startup script: 
+#
+# this can be set to any public url
+# for testing you could use a public paste bin
+#   post_startup_script_url = "https://hastebin.com/raw/ledahubuqe" 
+# by default it is set by exporting the current local copy of
+# post-startup-script.sh to github gist in tfvars.sh
+#
+# post_startup_script_url = <see TF_VARS_post_startup_script_url>
 
 
 ##########
