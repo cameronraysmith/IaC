@@ -20,7 +20,7 @@ The expected workflow is to
 - install [terraform][terraform]
   - `terraform init`
 - edit [tfvars.sh](./tfvars.sh)
-  - this script is executed at the top level of the [Makefile](./Makefile) to set variables and upload [post-startup-script.sh](./post-startup-script.sh) to a publicly accessible location for consumption by the virtual machine. A copy of the latter will be downloaded to and executed from the path `/opt/c2d/post-startup-script.sh` on the remote machine.
+  - this script is executed at the top level of the [Makefile](./Makefile) to set variables and upload [post-startup-script.sh](./post-startup-script.sh) to a publicly accessible location for consumption by the virtual machine. A copy of the latter will be downloaded to and executed from the path `/opt/c2d/post_start.sh` on the remote machine.
   - set variables using [pass][pass] or manually
     - `pass insert github_username`
     - and similar for `gcp_project`, `gcp_email` ,`gcp_credentials_file`, `gcp_notebooks_name`
