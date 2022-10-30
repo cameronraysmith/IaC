@@ -13,6 +13,10 @@
 # - install terraform
 # 	- terraform init
 #
+# - install gh cli
+#   - gh auth login
+#   - gh auth status
+#
 # - edit tfvars.sh
 # 	- set variables using [pass][pass] or manually
 #
@@ -35,22 +39,12 @@ $(shell ./tfvars.sh > /dev/null 2>&1)
 include .env
 export
 
-setup: test
-	terraform fmt
-	terraform validate
-	terraform plan -out=tfplan
-
-apply: setup
-	terraform apply -auto-approve "tfplan" 
 
 up: \
 apply \
 update_os_login \
 info \
 config_ssh
-
-down:
-	terraform destroy -auto-approve
 
 stop:
 	gcloud compute instances stop $(TF_VAR_notebooks_name)
@@ -60,11 +54,19 @@ start_instance \
 info \
 config_ssh
 
+down:
+	terraform destroy -auto-approve
+
 ############################################
 ############################################
 
-start_instance:
-	gcloud compute instances start $(TF_VAR_notebooks_name)
+setup: test
+	terraform fmt
+	terraform validate
+	terraform plan -out=tfplan
+
+apply: setup
+	terraform apply -auto-approve "tfplan" 
 
 info:
 	gcloud compute instances list
@@ -73,6 +75,9 @@ info:
 # see .ssh/config or similar for ssh config
 config_ssh:
 	gcloud compute config-ssh
+
+start_instance:
+	gcloud compute instances start $(TF_VAR_notebooks_name)
 
 # list names of images available in the deeplearning-platform-release
 show-images:
