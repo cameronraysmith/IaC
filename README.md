@@ -1,6 +1,6 @@
 # development environment
 
-This folder contains [infrastructure as code][IaC] (IaC) for a minimal development environment that supports swapping backend machines and associated GPU(s) to meet the demands of a given development task. It currently uses [terraform][terraform] with the [google cloud platform][gcpsdk] provider, but it could be adapted for other cloud platforms or providers (see the [terraform documentation][tfmdocs] for further reference).
+This folder contains [infrastructure as code][IaC] (IaC) for a minimal development environment that supports swapping backend machines and associated GPU(s) to meet the demands of a given development task. It currently uses [terraform][terraform] with the [google cloud platform][gcpsdk] provider and the [google notebooks instance][gni] resource, but it could be adapted for other cloud platforms, providers, or resources (see the [terraform documentation][tfmdocs] for further reference).
 
 ## workflow
 The expected workflow is to
@@ -90,6 +90,7 @@ Host gcp
 
 
 [IaC]: https://en.wikipedia.org/wiki/Infrastructure_as_code
+[gni]: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/notebooks_instance
 [adc]: https://cloud.google.com/docs/authentication/provide-credentials-adc
 [make]: https://www.gnu.org/software/make/
 [gcpsdk]: https://cloud.google.com/sdk/docs/install
