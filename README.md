@@ -14,13 +14,29 @@ The expected workflow is to
 ## prerequisites
 
 - install [google cloud sdk][gcpsdk]
-  - `gcloud init` to set project
+  - `gcloud init` to set project and [application default credentials][adc]
     - `gcloud auth login`
     - `gcloud auth application-default login`
 - install [terraform][terraform]
   - `terraform init`
 - edit [tfvars.sh](./tfvars.sh)
   - set variables using [pass][pass] or manually
+    - `pass insert github_username`
+    - and similar for `gcp_project`, `gcp_email` ,`gcp_credentials_file`, `gcp_notebooks_name`
+    - `gcp_credentials_file` contains the path to appication default credentials. The most common value is `~/.config/gcloud/application_default_credentials.json`
+    - check these are defined with `$ pass`
+
+      ```shell
+      $ pass
+      Password Store
+      ├── gcp_credentials_file
+      ├── gcp_credentials_path
+      ├── gcp_email
+      ├── gcp_notebooks_name
+      ├── gcp_project
+      └── github_username
+      ```
+
   - install and authenticate with [github cli][ghcli] to use gists for the post startup script
     - check `gh auth status` when complete
   - executing this script will upload [post-startup-script.sh](./post-startup-script.sh) to github gist by default
@@ -74,6 +90,7 @@ Host gcp
 
 
 [IaC]: https://en.wikipedia.org/wiki/Infrastructure_as_code
+[adc]: https://cloud.google.com/docs/authentication/provide-credentials-adc
 [make]: https://www.gnu.org/software/make/
 [gcpsdk]: https://cloud.google.com/sdk/docs/install
 [tfmdocs]: https://developer.hashicorp.com/terraform/docs
