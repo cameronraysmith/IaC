@@ -41,7 +41,7 @@ sudo chown -R $JUPYTER_USER:$JUPYTER_USER /home/$JUPYTER_USER
 sudo chmod -R 755 /home/$JUPYTER_USER
 
 $CONDA_PATH/mamba env create -n $GITHUB_REPO \
-    -f $REPO_PATH/conda/environment-gpu.yml
+    -f $REPO_PATH/environment.yml
 sudo -u $JUPYTER_USER $CONDA_PATH/pipx ensurepath
 sudo -u $JUPYTER_USER $CONDA_PATH/pipx install poetry
 sudo -u $JUPYTER_USER $CONDA_PATH/pipx install nox
