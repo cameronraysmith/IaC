@@ -39,7 +39,12 @@ then
 fi
 
 GITHUB_USERNAME=$(pass github_username)
+export GITHUB_ORG_NAME=$(pass github_org)
+export GITHUB_REPO_NAME=$(pass github_repo)
 STARTUP_SCRIPT_NAME="post-startup-script.sh"
+
+cat template-post-startup-script.sh | \
+envsubst '${GITHUB_ORG_NAME} ${GITHUB_REPO_NAME}' > $STARTUP_SCRIPT_NAME
 
 get_startup_script_gist_id () {
    echo "$(gh gist list | grep -m1 '.*post-startup-script.*' | cut -f1)"
@@ -65,7 +70,7 @@ TF_VAR_credentials_file="$(pass gcp_credentials_file)"
 TF_VAR_notebooks_name="$(pass gcp_notebooks_name)"
 TF_VAR_post_startup_script_url="https://gist.githubusercontent.com/$GITHUB_USERNAME/$STARTUP_SCRIPT_GIST_ID/raw/$STARTUP_SCRIPT_NAME"
 export TF_VAR_project TF_VAR_email TF_VAR_credentials_file TF_VAR_notebooks_name TF_VAR_post_startup_script_url
-# unset TF_VAR_project TF_VAR_email TF_VAR_credentials_file TF_VAR_notebooks_name TF_VAR_post_startup_script_url
+# unset TF_VAR_project TF_VAR_email TF_VAR_credentials_file TF_VAR_notebooks_name TF_VAR_post_startup_script_url GITHUB_ORG_NAME GITHUB_REPO_NAME
 
 url_status=$(curl -s -o /dev/null -w "%{http_code}" "$TF_VAR_post_startup_script_url")
 echo "post startup script url: $TF_VAR_post_startup_script_url"
@@ -79,4 +84,6 @@ echo "post startup script url status: $url_status"
     echo "TF_VAR_credentials_file=$TF_VAR_credentials_file";
     echo "TF_VAR_notebooks_name=$TF_VAR_notebooks_name";
     echo "TF_VAR_post_startup_script_url=$TF_VAR_post_startup_script_url";
+    echo "GITHUB_ORG_NAME=$GITHUB_ORG_NAME";
+    echo "GITHUB_REPO_NAME=$GITHUB_REPO_NAME";
 } > .env

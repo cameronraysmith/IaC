@@ -1,6 +1,7 @@
 ### Local ###
 archive/
 .env
+post-startup-script.sh
 
 ### VS Code ###
 *.code-workspace

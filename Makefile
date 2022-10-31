@@ -96,7 +96,7 @@ restart_container:
 	gcloud compute ssh $(TF_VAR_notebooks_name) --command 'docker restart payload-container'
 
 test:
-	env | grep "TF_VAR"
+	env | grep "TF_VAR\|GITHUB"
 
 
 ############################################

@@ -20,10 +20,10 @@ The expected workflow is to
 - install [terraform][terraform]
   - `terraform init`
 - edit [tfvars.sh](./tfvars.sh)
-  - this script is executed at the top level of the [Makefile](./Makefile) to set variables and upload [post-startup-script.sh](./post-startup-script.sh) to a publicly accessible location for consumption by the virtual machine. A copy of the latter will be downloaded to and executed from the path `/opt/c2d/post_start.sh` on the remote machine.
+  - this script is executed at the top level of the [Makefile](./Makefile) to set variables and upload `post-startup-script.sh` to a publicly accessible location for consumption by the virtual machine. A copy of the latter will be downloaded to and executed from the path `/opt/c2d/post_start.sh` on the remote machine.
   - set variables using [pass][pass] or manually
     - `pass insert github_username`
-    - and similar for `gcp_project`, `gcp_email` ,`gcp_credentials_file`, `gcp_notebooks_name`
+    - and similar for `gcp_credentials_file`, `gcp_email`, `gcp_project`, `gcp_notebooks_name`, `github_org`, and `github_repo`
     - `gcp_credentials_file` contains the path to appication default credentials. The most common value is `~/.config/gcloud/application_default_credentials.json`
     - check these are defined with `$ pass`
 
@@ -31,20 +31,21 @@ The expected workflow is to
       $ pass
       Password Store
       ├── gcp_credentials_file
-      ├── gcp_credentials_path
       ├── gcp_email
-      ├── gcp_notebooks_name
       ├── gcp_project
+      ├── gcp_notebooks_name
+      ├── github_org
+      ├── github_repo
       └── github_username
       ```
 
   - install and authenticate with [github cli][ghcli] to use gists for the post startup script
     - check `gh auth status` when complete
-  - execution of [tfvars.sh](./tfvars.sh) will upload your current local copy of [post-startup-script.sh](./post-startup-script.sh) to github gist by default
+  - execution of [tfvars.sh](./tfvars.sh) will upload your current local copy of `post-startup-script.sh` generated from [template-post-startup-script.sh](./template-post-startup-script.sh) to github gist by default
 - review/edit [terraform.tfvars](./terraform.tfvars)
   - you can optionally set the post startup script url in this file if you are not able to set up the [github cli][ghcli] 
 - `make test` will function when above are satisfied
-  - upload [post-startup-script.sh](./post-startup-script.sh) to github gist
+  - upload `post-startup-script.sh` to github gist
   - print `TF_VARS_*` environment variables
 
 ## usage 
