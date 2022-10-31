@@ -91,6 +91,10 @@ update_os_login:
 	gcloud compute instances add-metadata $(TF_VAR_notebooks_name) --metadata=enable-oslogin="FALSE"
 	gcloud compute instances describe $(TF_VAR_notebooks_name) --format="value(metadata)"
 
+delete_gist:
+	@echo "github gist ID to be removed: $(STARTUP_SCRIPT_GITHUB_GIST_ID)"
+	gh gist delete $(STARTUP_SCRIPT_GITHUB_GIST_ID)
+
 # relevant when using container, as opposed to vm, images
 restart_container:
 	gcloud compute ssh $(TF_VAR_notebooks_name) --command 'docker restart payload-container'
