@@ -25,7 +25,7 @@ then
     echo "github cli could not be found"
     echo "please see https://cli.github.com/ for installation instructions"
     echo "or set the following variables manually"
-    echo "STARTUP_SCRIPT_GIST_ID to use a gist for startup script"
+    echo "STARTUP_SCRIPT_GITHUB_GIST_ID to use a gist for startup script"
     echo "or TF_VAR_post_startup_script_url to use another publicly accessible url"
     exit 1
 fi
@@ -69,15 +69,15 @@ else
 fi
 
 
-STARTUP_SCRIPT_GIST_ID="$(get_startup_script_gist_id)"
-echo "startup script gist id: $STARTUP_SCRIPT_GIST_ID"
-TF_VAR_post_startup_script_url="https://gist.githubusercontent.com/$GITHUB_USERNAME/$STARTUP_SCRIPT_GIST_ID/raw/$STARTUP_SCRIPT_NAME"
-export TF_VAR_post_startup_script_url
+STARTUP_SCRIPT_GITHUB_GIST_ID="$(get_startup_script_gist_id)"
+echo "startup script gist id: $STARTUP_SCRIPT_GITHUB_GIST_ID"
+TF_VAR_post_startup_script_url="https://gist.githubusercontent.com/$GITHUB_USERNAME/$STARTUP_SCRIPT_GITHUB_GIST_ID/raw/$STARTUP_SCRIPT_NAME"
+export STARTUP_SCRIPT_GITHUB_GIST_ID TF_VAR_post_startup_script_url
 # unset TF_VAR_post_startup_script_url
 
 url_status=$(curl -s -o /dev/null -w "%{http_code}" "$TF_VAR_post_startup_script_url")
 echo "post startup script url: $TF_VAR_post_startup_script_url"
-echo "view post startup script in stdout: gh gist view $STARTUP_SCRIPT_GIST_ID"
+echo "view post startup script in stdout: gh gist view $STARTUP_SCRIPT_GITHUB_GIST_ID"
 echo "check startup script gists with: gh gist list | grep '.*post-startup-script.*'"
 echo "post startup script url status: $url_status"
 
@@ -89,4 +89,5 @@ echo "post startup script url status: $url_status"
     echo "TF_VAR_post_startup_script_url=$TF_VAR_post_startup_script_url";
     echo "GITHUB_ORG_NAME=$GITHUB_ORG_NAME";
     echo "GITHUB_REPO_NAME=$GITHUB_REPO_NAME";
+    echo "STARTUP_SCRIPT_GITHUB_GIST_ID=$STARTUP_SCRIPT_GITHUB_GIST_ID";
 } > .env
