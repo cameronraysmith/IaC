@@ -13,6 +13,8 @@ set -x
 
 GITHUB_ORG=${GITHUB_ORG_NAME}
 GITHUB_REPO=${GITHUB_REPO_NAME}
+GITHUB_BRANCH=${GITHUB_BRANCH_NAME}
+GIHUB_REPO_CONDA_ENV_YML_PATH=${GITHUB_REPO_CONDA_ENV_PATH_NAME}
 CONDA_PATH=/opt/conda/bin
 JUPYTER_USER=jupyter
 REPO_PATH=/home/$JUPYTER_USER/$GITHUB_REPO
@@ -36,12 +38,12 @@ $CONDA_PATH/mamba install -n base -c conda-forge \
     gpustat \
     expect
 
-sudo git clone https://github.com/$GITHUB_ORG/$GITHUB_REPO $REPO_PATH
+sudo git clone --branch $GITHUB_BRANCH https://github.com/$GITHUB_ORG/$GITHUB_REPO $REPO_PATH
 sudo chown -R $JUPYTER_USER:$JUPYTER_USER /home/$JUPYTER_USER 
 sudo chmod -R 755 /home/$JUPYTER_USER
 
 $CONDA_PATH/mamba env create -n $GITHUB_REPO \
-    -f $REPO_PATH/environment.yml
+    -f $REPO_PATH/$GIHUB_REPO_CONDA_ENV_YML_PATH
 sudo -u $JUPYTER_USER $CONDA_PATH/pipx ensurepath
 sudo -u $JUPYTER_USER $CONDA_PATH/pipx install poetry
 sudo -u $JUPYTER_USER $CONDA_PATH/pipx install nox

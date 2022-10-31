@@ -42,17 +42,19 @@ fi
 GITHUB_USERNAME=$(pass github_username)
 GITHUB_ORG_NAME=$(pass github_org)
 GITHUB_REPO_NAME=$(pass github_repo)
+GITHUB_BRANCH_NAME=$(pass github_branch)
+GITHUB_REPO_CONDA_ENV_PATH_NAME=$(pass github_repo_conda_env_path)
 TF_VAR_project="$(pass gcp_project)"
 TF_VAR_email="$(pass gcp_email)"
 TF_VAR_credentials_file="$(pass gcp_credentials_file)"
 TF_VAR_notebooks_name="$(pass gcp_notebooks_name)"
-export TF_VAR_project TF_VAR_email TF_VAR_credentials_file TF_VAR_notebooks_name GITHUB_ORG_NAME GITHUB_REPO_NAME
+export TF_VAR_project TF_VAR_email TF_VAR_credentials_file TF_VAR_notebooks_name GITHUB_ORG_NAME GITHUB_REPO_NAME GITHUB_BRANCH_NAME GITHUB_REPO_CONDA_ENV_PATH_NAME
 
 STARTUP_SCRIPT_NAME="post-startup-script-$TF_VAR_notebooks_name.sh"
 # unset TF_VAR_project TF_VAR_email TF_VAR_credentials_file TF_VAR_notebooks_name GITHUB_ORG_NAME GITHUB_REPO_NAME
 
 cat template-post-startup-script.sh | \
-envsubst '${GITHUB_ORG_NAME} ${GITHUB_REPO_NAME}' > $STARTUP_SCRIPT_NAME
+envsubst '${GITHUB_ORG_NAME} ${GITHUB_REPO_NAME} ${GITHUB_BRANCH_NAME} ${GITHUB_REPO_CONDA_ENV_PATH_NAME}' > $STARTUP_SCRIPT_NAME
 
 get_startup_script_gist_id () {
    echo "$(gh gist list | grep -m1 $STARTUP_SCRIPT_NAME | cut -f1)"
@@ -91,5 +93,7 @@ echo "post startup script url status: $url_status"
     echo "TF_VAR_post_startup_script_url=$TF_VAR_post_startup_script_url";
     echo "GITHUB_ORG_NAME=$GITHUB_ORG_NAME";
     echo "GITHUB_REPO_NAME=$GITHUB_REPO_NAME";
+    echo "GITHUB_BRANCH_NAME=$GITHUB_BRANCH_NAME";
+    echo "GITHUB_REPO_CONDA_ENV_PATH_NAME=$GITHUB_REPO_CONDA_ENV_PATH_NAME";
     echo "STARTUP_SCRIPT_GITHUB_GIST_ID=$STARTUP_SCRIPT_GITHUB_GIST_ID";
 } > .env

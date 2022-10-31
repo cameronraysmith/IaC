@@ -7,7 +7,7 @@ The expected workflow is to
 
 - set up a development machine with `make up`, 
 - connect to the machine via the associated jupyter lab server accessible from the [google cloud platform user interface][gcpui] for interactive use, 
-- [ssh](#remote-connection) to the machine from a terminal or IDE such as VS Code for library development,
+- [ssh](#remote-connection) to the machine from a terminal or IDE such as [VS Code][vscodessh] for library development,
 - toggle the machine off and on with `make stop` and `make start`, and
 - destroy all associated resources with `make down`.
 
@@ -26,19 +26,21 @@ The expected workflow is to
       TF_VAR_project=<GCP Project ID> # your google cloud platform project ID
       TF_VAR_email=<GCP account email address> # your google cloud platform account email address
       TF_VAR_credentials_file=~/.config/gcloud/application_default_credentials.json # local path to your application default credentials
-      TF_VAR_notebooks_name=dev-notebook # name to assign to your development virtual machine
+      TF_VAR_notebooks_name=pyrovelocity-dev-notebook # name to assign to your development virtual machine
       TF_VAR_post_startup_script_url=https://gist.githubusercontent.com/githubusername/b6c8cd158b00f99d21511a905cc7626a/raw/post-startup-script-dev-notebook.sh # publicly accessible URL to a startup script
       GITHUB_ORG_NAME=pinellolab # name the github or user containing the github repository with code for development
-      GITHUB_REPO_NAME=pyrovelocity # name of a github repository with a conda environment.yml file in the root directory
+      GITHUB_REPO_NAME=pyrovelocity # name of a github repository with a conda environment yaml file
+      GITHUB_BRANCH_NAME=master # name of github repository branch to checkout
+      GITHUB_REPO_CONDA_ENV_PATH_NAME=conda/environment-gpu.yml # path to conda environment yaml file in the github repository
       STARTUP_SCRIPT_GITHUB_GIST_ID=b6c8cd158b00f99d21511a905cc7626a # the github gist ID if you would like to use a github gist
       ```
   - edit [tfvars.sh](./tfvars.sh)
     - this script is executed by default at the top level of the [Makefile](./Makefile) to set variables and upload `post-startup-script.sh` to a publicly accessible location for consumption by the virtual machine. A copy of the latter will be downloaded to and executed from the path `/opt/c2d/post_start.sh` on the remote machine.
     - set variables using [pass][pass] or manually
-      - `pass insert github_username`
-      - and similar for `gcp_credentials_file`, `gcp_email`, `gcp_project`, `gcp_notebooks_name`, `github_org`, and `github_repo`
+      - execute `pass insert github_username`
+      - complete the same process for `gcp_credentials_file`, `gcp_email`, `gcp_project`, `gcp_notebooks_name`, `github_org`, `github_repo`, `github_branch`, and `github_repo_conda_env_path`
       - `gcp_credentials_file` contains the path to appication default credentials. The most common value is `~/.config/gcloud/application_default_credentials.json`
-      - check these are defined with `$ pass`
+      - check these are all defined with `$ pass`
 
         ```shell
         $ pass
@@ -49,6 +51,8 @@ The expected workflow is to
         ├── gcp_notebooks_name
         ├── github_org
         ├── github_repo
+        ├── github_branch
+        ├── github_repo_conda_env_path
         └── github_username
         ```
 
@@ -111,14 +115,15 @@ Host gcp
 
 
 [IaC]: https://en.wikipedia.org/wiki/Infrastructure_as_code
-[gni]: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/notebooks_instance
-[adc]: https://cloud.google.com/docs/authentication/provide-credentials-adc
-[python-dotenv]: https://github.com/theskumar/python-dotenv#file-format
-[make]: https://www.gnu.org/software/make/
-[dci]: https://cloud.google.com/deep-learning-containers/docs/derivative-container
+[terraform]: https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/install-cli
 [gcpsdk]: https://cloud.google.com/sdk/docs/install
+[gni]: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/notebooks_instance
 [tfmdocs]: https://developer.hashicorp.com/terraform/docs
 [gcpui]: https://console.cloud.google.com/vertex-ai/workbench/list/instances
-[terraform]: https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/install-cli
-[pass]: https://www.passwordstore.org/
+[vscodessh]: https://code.visualstudio.com/docs/remote/ssh
+[adc]: https://cloud.google.com/docs/authentication/provide-credentials-adc
+[python-dotenv]: https://github.com/theskumar/python-dotenv#file-format
 [ghcli]: https://cli.github.com
+[pass]: https://www.passwordstore.org/
+[make]: https://www.gnu.org/software/make/
+[dci]: https://cloud.google.com/deep-learning-containers/docs/derivative-container
