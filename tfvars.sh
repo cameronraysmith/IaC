@@ -27,6 +27,7 @@ then
     echo "or set the following variables manually"
     echo "STARTUP_SCRIPT_GITHUB_GIST_ID to use a gist for startup script"
     echo "or TF_VAR_post_startup_script_url to use another publicly accessible url"
+    echo "and remove or comment this check"
     exit 1
 fi
 
@@ -81,6 +82,7 @@ echo "view post startup script in stdout: gh gist view $STARTUP_SCRIPT_GITHUB_GI
 echo "check startup script gists with: gh gist list | grep '.*post-startup-script.*'"
 echo "post startup script url status: $url_status"
 
+# hardcode values here or in the .env file if you aren't able to use pass
 {
     echo "TF_VAR_project=$TF_VAR_project";
     echo "TF_VAR_email=$TF_VAR_email";

@@ -35,6 +35,8 @@
 ##############
 
 # read variables from tfvars.sh
+# or hardcode .env and
+# remove/comment the following line
 $(shell ./tfvars.sh > /dev/null 2>&1)
 include .env
 export

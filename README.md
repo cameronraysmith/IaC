@@ -19,35 +19,49 @@ The expected workflow is to
     - `gcloud auth application-default login`
 - install [terraform][terraform]
   - `terraform init`
-- edit [tfvars.sh](./tfvars.sh)
-  - this script is executed at the top level of the [Makefile](./Makefile) to set variables and upload `post-startup-script.sh` to a publicly accessible location for consumption by the virtual machine. A copy of the latter will be downloaded to and executed from the path `/opt/c2d/post_start.sh` on the remote machine.
-  - set variables using [pass][pass] or manually
-    - `pass insert github_username`
-    - and similar for `gcp_credentials_file`, `gcp_email`, `gcp_project`, `gcp_notebooks_name`, `github_org`, and `github_repo`
-    - `gcp_credentials_file` contains the path to appication default credentials. The most common value is `~/.config/gcloud/application_default_credentials.json`
-    - check these are defined with `$ pass`
-
+- set environment variables
+  - [tfvars.sh](./tfvars.sh) is provided to help construct a `.env` file that is read by the [Makefile](.Makefile) to set environment variables. If you do not want to use [tfvars.sh](./tfvars.sh), you can create a `.env` file as informally described, for example, in [dotenv][python-dotenv] containing all variables written to `.env` at the end of [tfvars.sh](./tfvars.sh) and remove reference to [tfvars.sh](./tfvars.sh) in the [Makefile](./Makefile)
+    - example `.env` file
       ```shell
-      $ pass
-      Password Store
-      ├── gcp_credentials_file
-      ├── gcp_email
-      ├── gcp_project
-      ├── gcp_notebooks_name
-      ├── github_org
-      ├── github_repo
-      └── github_username
+      TF_VAR_project=<GCP Project ID> # your google cloud platform project ID
+      TF_VAR_email=<GCP account email address> # your google cloud platform account email address
+      TF_VAR_credentials_file=~/.config/gcloud/application_default_credentials.json # local path to your application default credentials
+      TF_VAR_notebooks_name=dev-notebook # name to assign to your development virtual machine
+      TF_VAR_post_startup_script_url=https://gist.githubusercontent.com/githubusername/b6c8cd158b00f99d21511a905cc7626a/raw/post-startup-script-dev-notebook.sh # publicly accessible URL to a startup script
+      GITHUB_ORG_NAME=pinellolab # name the github or user containing the github repository with code for development
+      GITHUB_REPO_NAME=pyrovelocity # name of a github repository with a conda environment.yml file in the root directory
+      STARTUP_SCRIPT_GITHUB_GIST_ID=b6c8cd158b00f99d21511a905cc7626a # the github gist ID if you would like to use a github gist
       ```
+  - edit [tfvars.sh](./tfvars.sh)
+    - this script is executed by default at the top level of the [Makefile](./Makefile) to set variables and upload `post-startup-script.sh` to a publicly accessible location for consumption by the virtual machine. A copy of the latter will be downloaded to and executed from the path `/opt/c2d/post_start.sh` on the remote machine.
+    - set variables using [pass][pass] or manually
+      - `pass insert github_username`
+      - and similar for `gcp_credentials_file`, `gcp_email`, `gcp_project`, `gcp_notebooks_name`, `github_org`, and `github_repo`
+      - `gcp_credentials_file` contains the path to appication default credentials. The most common value is `~/.config/gcloud/application_default_credentials.json`
+      - check these are defined with `$ pass`
+
+        ```shell
+        $ pass
+        Password Store
+        ├── gcp_credentials_file
+        ├── gcp_email
+        ├── gcp_project
+        ├── gcp_notebooks_name
+        ├── github_org
+        ├── github_repo
+        └── github_username
+        ```
 
   - install and authenticate with [github cli][ghcli] to use gists for the post startup script
     - check `gh auth status` when complete
   - edit [template-post-startup-script.sh](./template-post-startup-script.sh)
     - execution of [tfvars.sh](./tfvars.sh) will upload your current local copy of `post-startup-script.sh` automatically generated from [template-post-startup-script.sh](./template-post-startup-script.sh) to a github gist by default
-- review/edit [terraform.tfvars](./terraform.tfvars)
-  - you can optionally set the post startup script url in this file if you are not able to set up the [github cli][ghcli] 
-- `make test` will function when above are satisfied
+  - review/edit [terraform.tfvars](./terraform.tfvars)
+    - you can optionally set parameters not currently read from environment variables in this file
+    - for example, you may want to set the machine type, accelerator/GPU type, disk size, etc 
+- when the requirements above are satisfied, `make test` will do the following
   - upload `post-startup-script.sh` to github gist
-  - print `TF_VARS_*` environment variables
+  - print `TF_VAR*` and `GITHUB*` environment variables
 
 ## usage 
 
@@ -99,6 +113,7 @@ Host gcp
 [IaC]: https://en.wikipedia.org/wiki/Infrastructure_as_code
 [gni]: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/notebooks_instance
 [adc]: https://cloud.google.com/docs/authentication/provide-credentials-adc
+[python-dotenv]: https://github.com/theskumar/python-dotenv#file-format
 [make]: https://www.gnu.org/software/make/
 [dci]: https://cloud.google.com/deep-learning-containers/docs/derivative-container
 [gcpsdk]: https://cloud.google.com/sdk/docs/install
