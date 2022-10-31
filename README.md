@@ -41,7 +41,8 @@ The expected workflow is to
 
   - install and authenticate with [github cli][ghcli] to use gists for the post startup script
     - check `gh auth status` when complete
-  - execution of [tfvars.sh](./tfvars.sh) will upload your current local copy of `post-startup-script.sh` generated from [template-post-startup-script.sh](./template-post-startup-script.sh) to github gist by default
+  - edit [template-post-startup-script.sh](./template-post-startup-script.sh)
+    - execution of [tfvars.sh](./tfvars.sh) will upload your current local copy of `post-startup-script.sh` automatically generated from [template-post-startup-script.sh](./template-post-startup-script.sh) to a github gist by default
 - review/edit [terraform.tfvars](./terraform.tfvars)
   - you can optionally set the post startup script url in this file if you are not able to set up the [github cli][ghcli] 
 - `make test` will function when above are satisfied
