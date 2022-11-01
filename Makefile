@@ -17,7 +17,7 @@
 #   - gh auth login
 #   - gh auth status
 #
-# - edit tfvars.sh
+# - edit dotenv-gen.sh
 # 	- set variables using [pass][pass] or manually
 #
 # - review/edit terraform.tfvars
@@ -34,10 +34,11 @@
 # all other targets are auxiliary
 ##############
 
-# read variables from tfvars.sh
-# or hardcode .env and
-# remove/comment the following line
-$(shell ./tfvars.sh > /dev/null 2>&1)
+# set variables with shell scripts
+# or manually edit .env and
+# remove/comment the following line(s)
+$(shell ./dotenv-gen.sh > /dev/null 2>&1)
+$(shell ./startup-script-gen.sh > /dev/null 2>&1)
 include .env
 export
 
