@@ -4,12 +4,36 @@
 
 # see dotenv-gen.sh for private variables
 
+# notebooks_name        = <see TF_VAR_notebooks_name in dotenv-gen.sh>
+
 ##########
-# machine
+# machine / accelerator pairings
 ##########
 
-# notebooks_name        = <see TF_VAR_notebooks_name in dotenv-gen.sh>
-notebook_machine_type = "n1-standard-4"
+# see https://cloud.google.com/compute/vm-instance-pricing#general-purpose_machine_type_family
+notebook_machine_type = "n1-standard-4" # 15GB
+# notebook_machine_type = "n1-highmem-4" # 26GB
+# notebook_machine_type = "n1-highmem-8" # 52GB
+# notebook_machine_type = "n1-highmem-16" # 104GB
+# notebook_machine_type = "n1-highmem-32" # 208GB
+accelerator_type   = "NVIDIA_TESLA_T4"
+# see https://cloud.google.com/compute/vm-instance-pricing#accelerator-optimized
+# notebook_machine_type = "a2-highgpu-1g" # 12cpu 85GB
+# accelerator_type   = "NVIDIA_TESLA_A100"
+# notebook_machine_type = "a2-ultragpu-1g" # 12cpu 170GB
+# accelerator_type   = "NVIDIA_A100_80GB"
+
+#########
+# accelerator
+#########
+
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/notebooks_instance#type
+install_gpu_driver = true
+accelerator_number = 1
+
+#########
+# image
+#########
 
 # image-based
 vm_image_project = "deeplearning-platform-release"
@@ -45,14 +69,6 @@ data_disk_size_gb = 100
 data_disk_type    = "PD_STANDARD"
 
 
-#########
-# accelerator
-#########
-
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/notebooks_instance#type
-install_gpu_driver = true
-accelerator_type   = "NVIDIA_TESLA_T4"
-accelerator_number = 1
 
 
 #########
