@@ -20,7 +20,7 @@ The expected workflow is to
   - `gcloud init` to set project and [application default credentials][adc]
     - `gcloud auth login`
     - `gcloud auth application-default login`
-  - request [GCP GPU quota increase][gcpgpuquota] via [google cloud console compute engine API][gcpconsolequota] to at least `1` for `NVIDIA_T4_GPUS`
+  - request [GCP GPU quota increase][gcpgpuquota] via [google cloud console compute engine API][gcpconsolequota] to at least `1` for `NVIDIA_T4_GPUS` or other accelerator types you plan to use
 - install [terraform][terraform]
   - `terraform init`
 - install and authenticate with [github cli][ghcli] to use github gists for the [post startup script](#startup-script)
