@@ -95,8 +95,8 @@ update_os_login:
 	gcloud compute instances describe $(TF_VAR_notebooks_name) --format="value(metadata)"
 
 delete_gist:
-	@echo "github gist ID to be removed: $(STARTUP_SCRIPT_GITHUB_GIST_ID)"
-	gh gist delete $(STARTUP_SCRIPT_GITHUB_GIST_ID)
+	@echo "github gist ID to be removed: $(GITHUB_STARTUP_SCRIPT_GIST_ID)"
+	gh gist delete $(GITHUB_STARTUP_SCRIPT_GIST_ID)
 
 # relevant when using container, as opposed to vm, images
 restart_container:
