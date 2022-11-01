@@ -77,6 +77,7 @@ info:
 
 # see .ssh/config or similar for ssh config
 config_ssh:
+	rm ~/.ssh/google_compute_known_hosts
 	gcloud compute config-ssh
 
 start_instance:
