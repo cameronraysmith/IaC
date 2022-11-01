@@ -30,13 +30,14 @@ $CONDA_PATH/mamba update --all -n base -y
 $CONDA_PATH/mamba install -n base -c conda-forge \
     conda-build \
     pipx \
-    jupyterlab-nvdashboard \
-    jupyterlab_execute_time \
+    htop \
     bat \
     fzf \
     ripgrep \
     gpustat \
-    expect
+    expect \
+    jupyterlab-nvdashboard \
+    jupyterlab_execute_time
 
 sudo git clone --branch $GITHUB_BRANCH https://github.com/$GITHUB_ORG/$GITHUB_REPO $REPO_PATH
 sudo chown -R $JUPYTER_USER:$JUPYTER_USER /home/$JUPYTER_USER 
