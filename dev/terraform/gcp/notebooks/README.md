@@ -18,6 +18,7 @@ The expected workflow is to
   - `gcloud init` to set project and [application default credentials][adc]
     - `gcloud auth login`
     - `gcloud auth application-default login`
+  - request [GCP GPU quota increase][gcpgpuquota] via [google cloud console compute engine API][gcpconsolequota] to at least `1` for `NVIDIA_T4_GPUS`
 - install [terraform][terraform]
   - `terraform init`
 - install and authenticate with [github cli][ghcli] to use github gists for the [post startup script](#startup-script)
@@ -143,6 +144,8 @@ Host gcp
 [gcpui]: https://console.cloud.google.com/vertex-ai/workbench/list/instances
 [vscodessh]: https://code.visualstudio.com/docs/remote/ssh
 [adc]: https://cloud.google.com/docs/authentication/provide-credentials-adc
+[gcpgpuquota]: https://cloud.google.com/compute/quotas#gpu_quota
+[gcpconsolequota]: https://console.cloud.google.com/apis/api/compute.googleapis.com/quotas
 [python-dotenv]: https://github.com/theskumar/python-dotenv#file-format
 [ghcli]: https://cli.github.com
 [pass]: https://www.passwordstore.org/
