@@ -17,6 +17,7 @@ variable "boot_disk_size_gb" {}
 variable "boot_disk_type" {}
 variable "data_disk_size_gb" {}
 variable "data_disk_type" {}
+variable "no_remove_data_disk" {}
 variable "post_startup_script_url" {}
 variable "region" {
   default = "us-central1"

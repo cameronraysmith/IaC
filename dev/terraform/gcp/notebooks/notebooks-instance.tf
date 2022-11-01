@@ -10,6 +10,7 @@ resource "google_notebooks_instance" "instance" {
   boot_disk_size_gb   = var.boot_disk_size_gb
   data_disk_type      = var.data_disk_type
   data_disk_size_gb   = var.data_disk_size_gb
+  no_remove_data_disk = var.no_remove_data_disk
   post_startup_script = var.post_startup_script_url
   metadata = {
     proxy-mode     = "service_account"

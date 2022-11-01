@@ -63,10 +63,11 @@ vm_image_family  = "pytorch-1-12-cu113-notebooks"
 ##########
 
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/notebooks_instance#boot_disk_type
-boot_disk_size_gb = 100
-boot_disk_type    = "PD_STANDARD"
-data_disk_size_gb = 100
-data_disk_type    = "PD_STANDARD"
+boot_disk_size_gb   = 100
+boot_disk_type      = "PD_STANDARD"
+data_disk_size_gb   = 100
+data_disk_type      = "PD_STANDARD"
+no_remove_data_disk = true
 
 
 
