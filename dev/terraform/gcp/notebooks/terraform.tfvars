@@ -16,7 +16,7 @@ notebook_machine_type = "n1-standard-4" # 15GB
 # notebook_machine_type = "n1-highmem-8" # 52GB
 # notebook_machine_type = "n1-highmem-16" # 104GB
 # notebook_machine_type = "n1-highmem-32" # 208GB
-accelerator_type   = "NVIDIA_TESLA_T4"
+accelerator_type = "NVIDIA_TESLA_T4"
 # see https://cloud.google.com/compute/vm-instance-pricing#accelerator-optimized
 # notebook_machine_type = "a2-highgpu-1g" # 12cpu 85GB
 # accelerator_type   = "NVIDIA_TESLA_A100"
