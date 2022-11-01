@@ -20,7 +20,7 @@ The expected workflow is to
     - `gcloud auth application-default login`
 - install [terraform][terraform]
   - `terraform init`
-- install and authenticate with [github cli][ghcli] to use github gists for the post startup script
+- install and authenticate with [github cli][ghcli] to use github gists for the [post startup script](#startup-script)
   - check `gh auth status` when complete
 
 ### configuration
