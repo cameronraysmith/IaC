@@ -81,15 +81,15 @@ The expected workflow is to
 
   - edit [template-post-startup-script.sh](dev/terraform/gcp/notebooks/template-post-startup-script.sh)
     - execution of [startup-script-gen.sh](dev/terraform/gcp/notebooks/startup-script-gen.sh) will upload your current local copy of `post-startup-script-$(TF_VAR_notebooks_name).sh` automatically generated from [template-post-startup-script.sh](dev/terraform/gcp/notebooks/template-post-startup-script.sh) to a github gist by default
-  - Uploading new copies of the github gist in succession may cause it to get out of sync with the server cache. You may find it helpful to run 
+- Uploading multiple revisions of the startup script to an associated github gist in succession may cause it to get out of sync with the github server cache. You may find it helpful to run 
 
-    ```shell
-    gh gist list
-    make -n delete_gist
-    make delete_gist
-    ```
+  ```shell
+  gh gist list
+  make -n delete_gist
+  make delete_gist
+  ```
 
-    to refresh the github gist ID associated to your startup script. If you are confident in how this works in your environment, you can likely just run `make delete_gist`.
+  to refresh the github gist ID associated to your startup script. If you are confident in how this works in your environment, you can likely just run `make delete_gist`.
 
 
 #### test
