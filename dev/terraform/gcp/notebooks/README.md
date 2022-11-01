@@ -64,9 +64,9 @@ The expected workflow is to
       └── github_username
       ```
 
-  - if there is a variable you would like to set that is not currently exposed, review/edit [terraform.tfvars](dev/terraform/gcp/notebooks/terraform.tfvars)
-    - you can optionally set parameters not currently read from environment variables in this file
-    - for example, you may want to set the machine type, accelerator/GPU type, disk size, etc 
+- if there is a variable you would like to set that is not currently exposed in the environment, review/edit [terraform.tfvars](dev/terraform/gcp/notebooks/terraform.tfvars)
+  - you can optionally set parameters not currently read from environment variables in this file
+  - for example, you may want to set the machine type, accelerator/GPU type, disk size, etc 
 
 #### startup script
 - edit/generate startup script
