@@ -1,6 +1,6 @@
 // VARIABLES ==============================================
 // see: terraform.tfvars for public
-//      tfvars.sh for private
+//      dotenv-gen.sh for private
 variable "project" {}
 variable "email" {}
 variable "credentials_file" {}
