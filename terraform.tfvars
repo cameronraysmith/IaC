@@ -2,13 +2,13 @@
 # public variables
 ##########
 
-# see tfvars.sh for private variables
+# see dotenv-gen.sh for private variables
 
 ##########
 # machine
 ##########
 
-# notebooks_name        = <see TF_VAR_notebooks_name in tfvars.sh>
+# notebooks_name        = <see TF_VAR_notebooks_name in dotenv-gen.sh>
 notebook_machine_type = "n1-standard-4"
 
 # image-based
@@ -29,7 +29,7 @@ vm_image_family  = "pytorch-1-12-cu113-notebooks"
 # for testing you could use a public paste bin
 #   post_startup_script_url = "https://hastebin.com/raw/ledahubuqe" 
 # by default it is set by exporting the current local copy of
-# post-startup-script.sh to github gist in tfvars.sh
+# post-startup-script.sh to github gist in startup-script-gen.sh
 #
 # post_startup_script_url = <see TF_VARS_post_startup_script_url>
 
