@@ -110,7 +110,7 @@ All other targets are auxiliary. The [Makefile](./Makefile) is primarily to docu
 
 ## machine images
 
-Check available machine images from the [deeplearning-platform-release](https://gcr.io/deeplearning-platform-release) by running `make show-disk-images`. You can modify the machine image by setting `vm_image_project` and `vm_image_family` in [terraform.tfvars](dev/terraform/gcp/notebooks/terraform.tfvars). You can alternatively use a docker image by reviewing and editing the content of [notebooks-instance.tf](dev/terraform/gcp/notebooks/notebooks-instance.tf) to use `container_image` instead of `vm_image`. You can also run `make show-container-images` to list available images. Note however that using a container image as opposed to a disk image would require a different post-startup configuration process. This can be incorporated into a [derivative container image][dci].
+Check available machine images from the [deeplearning-platform-release](https://gcr.io/deeplearning-platform-release) by running `make show_disk_images`. You can modify the machine image by setting `vm_image_project` and `vm_image_family` in [terraform.tfvars](dev/terraform/gcp/notebooks/terraform.tfvars). You can alternatively use a docker image by reviewing and editing the content of [notebooks-instance.tf](dev/terraform/gcp/notebooks/notebooks-instance.tf) to use `container_image` instead of `vm_image`. You can also run `make show_container_images` to list available images. Note however that using a container image as opposed to a disk image would require a different post-startup configuration process. This can be incorporated into a [derivative container image][dci].
 
 ## remote connection
 
