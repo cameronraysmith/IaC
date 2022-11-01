@@ -112,7 +112,9 @@ All other targets are auxiliary. The [Makefile](./Makefile) is primarily to docu
 
 Check available machine images from the [deeplearning-platform-release](https://gcr.io/deeplearning-platform-release) by running `make show_disk_images`. You can modify the machine image by setting `vm_image_project` and `vm_image_family` in [terraform.tfvars](./terraform.tfvars). You can alternatively use a docker image by reviewing and editing the content of [notebooks-instance.tf](./notebooks-instance.tf) to use `container_image` instead of `vm_image`. You can also run `make show_container_images` to list available images. Note however that using a container image as opposed to a disk image would require a different post-startup configuration process. This can be incorporated into a [derivative container image][dci].
 
-## remote connection
+## remote usage
+
+### ssh
 
 The [Makefile](./Makefile) will run
 
@@ -144,7 +146,24 @@ Host gcp
     ...
     RemoteCommand sudo docker exec -it payload-container /bin/bash
 ```
+### github
 
+You may find it useful to execute a script similar to the following 
+
+```shell
+printf "\n[user]
+    name = Your Name
+    email = your@email
+[credential]
+    helper = store\n" >> $HOME/.gitconfig && \   
+printf "github.com:
+    oauth_token: ghp_github_oauth_token
+    user: githubusername
+    git_protocol: https" > $HOME/.config/gh/hosts.yml && \
+printf "https://githubusername:ghp_github_oauth_token@github.com\n" > $HOME/.git-credentials
+```
+
+to support github integration from the remote server.
 
 [IaC]: https://en.wikipedia.org/wiki/Infrastructure_as_code
 [terraform]: https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/install-cli
