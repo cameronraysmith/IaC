@@ -29,7 +29,7 @@ The expected workflow is to
 #### environment variables
 
 - set environment variables
-  - [dotenv-gen.sh](dev/terraform/gcp/notebooks/dotenv-gen.sh) is provided to help construct a `.env` file that is read by the [Makefile](.Makefile) to set environment variables. If you do not want to use [dotenv-gen.sh](dev/terraform/gcp/notebooks/dotenv-gen.sh), you can create a `.env` file as informally described, for example, in [dotenv][python-dotenv] containing all variables written to `.env` at the end of [dotenv-gen.sh](dev/terraform/gcp/notebooks/dotenv-gen.sh) and remove reference to [dotenv-gen.sh](dev/terraform/gcp/notebooks/dotenv-gen.sh) in the [Makefile](./Makefile)
+  - [dotenv-gen.sh](./dotenv-gen.sh) is provided to help construct a `.env` file that is read by the [Makefile](.Makefile) to set environment variables. If you do not want to use [dotenv-gen.sh](./dotenv-gen.sh), you can create a `.env` file as informally described, for example, in [dotenv][python-dotenv] containing all variables written to `.env` at the end of [dotenv-gen.sh](./dotenv-gen.sh) and remove reference to [dotenv-gen.sh](./dotenv-gen.sh) in the [Makefile](./Makefile)
   - example `.env` file (see below for variables related to the startup script)
     ```shell
     TF_VAR_project=<GCP Project ID> # your google cloud platform project ID
@@ -64,23 +64,23 @@ The expected workflow is to
       └── github_username
       ```
 
-- if there is a variable you would like to set that is not currently exposed in the environment, review/edit [terraform.tfvars](dev/terraform/gcp/notebooks/terraform.tfvars)
+- if there is a variable you would like to set that is not currently exposed in the environment, review/edit [terraform.tfvars](./terraform.tfvars)
   - you can optionally set parameters not currently read from environment variables in this file
   - for example, you may want to set the machine type, accelerator/GPU type, disk size, etc 
 
 #### startup script
 - edit/generate startup script
-  - review/edit [startup-script-gen.sh](dev/terraform/gcp/notebooks/startup-script-gen.sh)
+  - review/edit [startup-script-gen.sh](./startup-script-gen.sh)
     - this script is executed by default at the top level of the [Makefile](./Makefile) to set variables and upload `post-startup-script.sh` to a publicly accessible location for consumption by the virtual machine. A copy of the latter will be downloaded to and executed from the path `/opt/c2d/post_start.sh` on the remote machine.
-    - if you would like to avoid using this script, add values for the following variables to `.env` and comment reference to [startup-script-gen.sh](dev/terraform/gcp/notebooks/startup-script-gen.sh) in the [Makefile](.Makefile)
+    - if you would like to avoid using this script, add values for the following variables to `.env` and comment reference to [startup-script-gen.sh](./startup-script-gen.sh) in the [Makefile](.Makefile)
 
       ```shell
       TF_VAR_post_startup_script_url=https://gist.githubusercontent.com/githubusername/b6c8cd158b00f99d21511a905cc7626a/raw/post-startup-script-dev-notebook.sh # publicly accessible URL to a startup script
       GITHUB_STARTUP_SCRIPT_GIST_ID=b6c8cd158b00f99d21511a905cc7626a # the github gist ID if you would like to use a github gist
       ```
 
-  - edit [template-post-startup-script.sh](dev/terraform/gcp/notebooks/template-post-startup-script.sh)
-    - execution of [startup-script-gen.sh](dev/terraform/gcp/notebooks/startup-script-gen.sh) will upload your current local copy of `post-startup-script-$(TF_VAR_notebooks_name).sh` automatically generated from [template-post-startup-script.sh](dev/terraform/gcp/notebooks/template-post-startup-script.sh) to a github gist by default
+  - edit [template-post-startup-script.sh](./template-post-startup-script.sh)
+    - execution of [startup-script-gen.sh](./startup-script-gen.sh) will upload your current local copy of `post-startup-script-$(TF_VAR_notebooks_name).sh` automatically generated from [template-post-startup-script.sh](./template-post-startup-script.sh) to a github gist by default
 - Uploading multiple revisions of the startup script to an associated github gist in succession may cause it to get out of sync with the github server cache. You may find it helpful to run 
 
   ```shell
@@ -110,7 +110,7 @@ All other targets are auxiliary. The [Makefile](./Makefile) is primarily to docu
 
 ## machine images
 
-Check available machine images from the [deeplearning-platform-release](https://gcr.io/deeplearning-platform-release) by running `make show_disk_images`. You can modify the machine image by setting `vm_image_project` and `vm_image_family` in [terraform.tfvars](dev/terraform/gcp/notebooks/terraform.tfvars). You can alternatively use a docker image by reviewing and editing the content of [notebooks-instance.tf](dev/terraform/gcp/notebooks/notebooks-instance.tf) to use `container_image` instead of `vm_image`. You can also run `make show_container_images` to list available images. Note however that using a container image as opposed to a disk image would require a different post-startup configuration process. This can be incorporated into a [derivative container image][dci].
+Check available machine images from the [deeplearning-platform-release](https://gcr.io/deeplearning-platform-release) by running `make show_disk_images`. You can modify the machine image by setting `vm_image_project` and `vm_image_family` in [terraform.tfvars](./terraform.tfvars). You can alternatively use a docker image by reviewing and editing the content of [notebooks-instance.tf](./notebooks-instance.tf) to use `container_image` instead of `vm_image`. You can also run `make show_container_images` to list available images. Note however that using a container image as opposed to a disk image would require a different post-startup configuration process. This can be incorporated into a [derivative container image][dci].
 
 ## remote connection
 
