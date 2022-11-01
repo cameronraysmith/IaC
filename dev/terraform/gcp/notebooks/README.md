@@ -10,7 +10,7 @@ The expected workflow is to
 - connect to the machine via the associated jupyter lab server accessible from the [google cloud platform user interface][gcpui] for interactive use, 
 - [ssh](#ssh) to the machine from a terminal or IDE such as [VS Code][vscodessh] for library development,
 - toggle the machine off and on with `make stop` and `make start`, and
-- destroy all associated resources with `make down`.
+- destroy associated compute resources with `make down`.
 
 ## prerequisites
 
@@ -103,6 +103,8 @@ The expected workflow is to
 
 ## usage
 
+### Makefile
+
 The primary interface is via the [Makefile](./Makefile), which is being used here as a modular collection of short shell scripts rather than as a build system. You can fill environment variables and print each command prior to running with `make -n <target>` such as `make -n up`. Please see [GNU make][make] for further reference. The primary targets are
 
 ```shell
@@ -113,6 +115,10 @@ make down - delete the instance
 ```
 
 All other targets are auxiliary. The [Makefile](./Makefile) is primarily to document commands that are commonly used to work with the terraform resource(s). You can simply copy the command from the Makefile and run it manually in the terminal if you do not want to use [make][make].
+
+### data disk management
+
+The data disk associated to a given `notebooks_name` is retained and reattached even after running `make down` and `make up`. This is useful to avoid losing work, especially when preemptibility is enabled. However, this is associated to a cost for retaining the persistent disk. If you want to disable this behavior and delete the data disk automatically when destroying a machine, set `no_remove_data_disk = false` in [terraform.tfvars](./terraform.tfvars). To manually delete the data disk associated to the current value of `notebooks_name`, run `make -n delete_data_disk` to verify the correct disk would be deleted and then rerun without `-n` to delete the data disk.
 
 ## machine images
 
