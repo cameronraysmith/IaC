@@ -28,7 +28,7 @@ $CONDA_PATH/conda config --add channels conda-forge
 $CONDA_PATH/conda config --set channel_priority flexible
 $CONDA_PATH/mamba update --all -n base -y
 $CONDA_PATH/mamba install -n base -c conda-forge \
-    conda-build \
+    gh \
     pipx \
     htop \
     bat \
@@ -36,6 +36,8 @@ $CONDA_PATH/mamba install -n base -c conda-forge \
     ripgrep \
     gpustat \
     expect \
+    conda-build \
+    google-cloud-sdk \
     jupyterlab-nvdashboard \
     jupyterlab_execute_time
 
