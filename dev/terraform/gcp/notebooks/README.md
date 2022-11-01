@@ -136,9 +136,8 @@ Host gcp
     RemoteCommand cd /home/jupyter && sudo su jupyter
 ```
 
-If you are using [VS Code][vscodessh] you may need to manually set `"remote.SSH.enableRemoteCommand": true` in order to respect execution of the `RemoteCommand` within the ssh session.
+The `IP_ADDRESS` of the remote host is printed at the end of `make up`. You can run `gcloud compute instances list` to display the `IP_ADDRESS` of the virtual machine if you need to reference it. If you are using [VS Code][vscodessh] you may need to manually set `"remote.SSH.enableRemoteCommand": true` in order to respect execution of the `RemoteCommand` within the ssh session.
 
-The `IP_ADDRESS` of the remote host is printed at the end of `make up`. You can run `gcloud compute instances list` to display the `IP_ADDRESS` of the virtual machine if you need to reference it.
 If you use the container rather than disk image to setup the virtual machine, you may find an alternative `RemoteCommand` useful
 
 ```shell
@@ -146,6 +145,7 @@ Host gcp
     ...
     RemoteCommand sudo docker exec -it payload-container /bin/bash
 ```
+
 ### github
 
 You may find it useful to execute a script similar to the following 
