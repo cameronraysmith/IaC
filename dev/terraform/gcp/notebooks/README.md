@@ -151,6 +151,7 @@ Host gcp
 You may find it useful to execute a script similar to the following 
 
 ```shell
+mkdir -p $HOME/.config/gh && \
 printf "\n[user]
     name = Your Name
     email = your@email
