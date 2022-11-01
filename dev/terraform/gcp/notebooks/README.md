@@ -73,6 +73,7 @@ The expected workflow is to
   - for example, you may want to set the machine type, accelerator/GPU type, disk size, etc 
 
 #### startup script
+
 - edit/generate startup script
   - review/edit [startup-script-gen.sh](./startup-script-gen.sh)
     - this script is executed by default at the top level of the [Makefile](./Makefile) to set variables and upload `post-startup-script.sh` to a publicly accessible location for consumption by the virtual machine. A copy of the latter will be downloaded to and executed from the path `/opt/c2d/post_start.sh` on the remote machine.
@@ -85,7 +86,7 @@ The expected workflow is to
 
   - edit [template-post-startup-script.sh](./template-post-startup-script.sh)
     - execution of [startup-script-gen.sh](./startup-script-gen.sh) will upload your current local copy of `post-startup-script-$(TF_VAR_notebooks_name).sh` automatically generated from [template-post-startup-script.sh](./template-post-startup-script.sh) to a github gist by default
-- Uploading multiple revisions of the startup script to an associated github gist in succession may cause it to get out of sync with the github server cache. You may find it helpful to run 
+- Uploading multiple revisions of the startup script to an associated github gist in succession may cause it to get out of sync with the github server cache. You may find it helpful to run
 
   ```shell
   gh gist list
@@ -118,7 +119,7 @@ All other targets are auxiliary. The [Makefile](./Makefile) is primarily to docu
 
 ### data disk management
 
-The data disk associated to a given `notebooks_name` is retained and reattached even after running `make down` and `make up`. This is useful to avoid losing work, especially when preemptibility is enabled. However, this is associated to a cost for retaining the persistent disk. If you want to disable this behavior and delete the data disk automatically when destroying a machine, set `no_remove_data_disk = false` in [terraform.tfvars](./terraform.tfvars). To manually delete the data disk associated to the current value of `notebooks_name`, run `make -n delete_data_disk` to verify the correct disk would be deleted and then rerun without `-n` to delete the data disk.
+The data disk associated to a given `notebooks_name` is retained and reattached even after running `make down` and `make up`. This is useful to avoid losing work, especially when [spot/preemptibility][gcpspot] is enabled (not currently supported by the [terraform google_notebooks_instance resource][gni]). However, this is associated to a cost for retaining the persistent disk. If you want to disable this behavior and delete the data disk automatically when destroying a machine, set `no_remove_data_disk = false` in [terraform.tfvars](./terraform.tfvars). To manually delete the data disk associated to the current value of `notebooks_name`, run `make -n delete_data_disk` to verify the correct disk would be deleted and then rerun without `-n` to delete the data disk.
 
 ## machine images
 
@@ -189,6 +190,7 @@ to support github integration from the remote server.
 [gcpgpuquota]: https://cloud.google.com/compute/quotas#gpu_quota
 [gcpconsolequota]: https://console.cloud.google.com/apis/api/compute.googleapis.com/quotas
 [python-dotenv]: https://github.com/theskumar/python-dotenv#file-format
+[gcpspot]: https://cloud.google.com/compute/docs/instances/spot
 [ghcli]: https://cli.github.com
 [pass]: https://www.passwordstore.org/
 [make]: https://www.gnu.org/software/make/
