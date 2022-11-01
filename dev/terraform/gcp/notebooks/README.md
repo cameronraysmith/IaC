@@ -42,7 +42,7 @@ The expected workflow is to
     GITHUB_BRANCH_NAME=master # name of github repository branch to checkout
     GITHUB_REPO_CONDA_ENV_PATH_NAME=conda/environment-gpu.yml # path to conda environment yaml file in the github repository
     TF_VAR_post_startup_script_url=https://gist.githubusercontent.com/githubusername/b6c8cd158b00f99d21511a905cc7626a/raw/post-startup-script-dev-notebook.sh # publicly accessible URL to a startup script
-    STARTUP_SCRIPT_GITHUB_GIST_ID=b6c8cd158b00f99d21511a905cc7626a # the github gist ID if you would like to use a github gist
+    GITHUB_STARTUP_SCRIPT_GIST_ID=b6c8cd158b00f99d21511a905cc7626a # the github gist ID if you would like to use a github gist
     ```
   - set variables using [pass][pass] or manually
     - execute `pass insert github_username`
@@ -76,7 +76,7 @@ The expected workflow is to
 
       ```shell
       TF_VAR_post_startup_script_url=https://gist.githubusercontent.com/githubusername/b6c8cd158b00f99d21511a905cc7626a/raw/post-startup-script-dev-notebook.sh # publicly accessible URL to a startup script
-      STARTUP_SCRIPT_GITHUB_GIST_ID=b6c8cd158b00f99d21511a905cc7626a # the github gist ID if you would like to use a github gist
+      GITHUB_STARTUP_SCRIPT_GIST_ID=b6c8cd158b00f99d21511a905cc7626a # the github gist ID if you would like to use a github gist
       ```
 
   - edit [template-post-startup-script.sh](dev/terraform/gcp/notebooks/template-post-startup-script.sh)
