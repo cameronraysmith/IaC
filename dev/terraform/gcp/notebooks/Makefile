@@ -99,6 +99,9 @@ delete_gist:
 	@echo "github gist ID to be removed: $(GITHUB_STARTUP_SCRIPT_GIST_ID)"
 	gh gist delete $(GITHUB_STARTUP_SCRIPT_GIST_ID)
 
+delete_data_disk:
+	gcloud compute disks delete $(TF_VAR_notebooks_name)-data
+
 # relevant when using container, as opposed to vm, images
 restart_container:
 	gcloud compute ssh $(TF_VAR_notebooks_name) --command 'docker restart payload-container'
