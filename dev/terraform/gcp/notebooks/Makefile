@@ -83,10 +83,10 @@ start_instance:
 	gcloud compute instances start $(TF_VAR_notebooks_name)
 
 # list names of images available in the deeplearning-platform-release
-show-disk-images:
+show_disk_images:
 	gcloud compute images list --project=deeplearning-platform-release
 
-show-condainter-images:
+show_container_images:
 	gcloud container images list --repository="gcr.io/deeplearning-platform-release"
 
 # to be removed when tf google_notebooks_instance API supports enable-oslogin
