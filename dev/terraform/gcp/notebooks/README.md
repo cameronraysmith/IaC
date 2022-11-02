@@ -135,7 +135,7 @@ The [Makefile](./Makefile) will run
 gcloud compute config-ssh
 ```
 
-to update your ssh configuration file and print the configured hostname at the end of `make up`. In order to connect from IDEs or otherwise, it may be helpful to update your `~/.ssh/config` file with something similar to (updated to reference the key files you use with google cloud platform)
+to update your ssh configuration file and print the configured hostname at the end of `make up`. From a terminal, you can ssh into the hostname printed at the end of `make up`. In order to connect from IDEs or otherwise, it may be helpful to update your `~/.ssh/config` file with something similar to (updated to reference the key files you use with google cloud platform)
 
 ```shell
 Host gcp
