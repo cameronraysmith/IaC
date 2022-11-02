@@ -1,6 +1,6 @@
 # development environment
 
-This folder contains [infrastructure as code][IaC] (IaC) for a minimal development environment that supports swapping backend machines and associated GPU(s) to meet the demands of a given development task. It currently uses [terraform][terraform] with the [google cloud platform][gcpsdk] provider and the [google notebooks instance][gni] resource, but it could be adapted for other cloud platforms, providers, or resources (see the [terraform documentation][tfmdocs] for further reference).
+This folder contains [infrastructure as code][IaC] (IaC) for a minimal development environment that supports swapping backend machines and associated GPU(s) to meet the demands of a given development task. It currently uses [terraform][terraform] with the [google cloud platform][gcpsdk] provider and the [google notebooks instance][gni] resource, but it could be adapted for other cloud platforms, providers, or resources (see the [terraform documentation][tfmdocs] for further reference). It is assumed all commands are run from within this folder.
 
 ## workflow
 
