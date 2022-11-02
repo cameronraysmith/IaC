@@ -91,8 +91,14 @@ show_disk_images:
 show_container_images:
 	gcloud container images list --repository="gcr.io/deeplearning-platform-release"
 
+GCP_ZONE=$(shell gcloud compute instances list --filter="name=$(TF_VAR_notebooks_name)" --format "csv[no-heading](zone)")
+
+update_gcp_zone:
+	@echo "setting default GCP zone: $(GCP_ZONE)"
+	gcloud config set compute/zone $(GCP_ZONE)
+
 # to be removed when tf google_notebooks_instance API supports enable-oslogin
-update_os_login:
+update_os_login: update_gcp_zone
 	gcloud compute instances add-metadata $(TF_VAR_notebooks_name) --metadata=enable-oslogin="FALSE"
 	gcloud compute instances describe $(TF_VAR_notebooks_name) --format="value(metadata)"
 
